@@ -2,16 +2,17 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 from mysql.connector import Error
+import os
 
 app = Flask(__name__)
-app.secret_key = 'dbkey'  # Change this to a secure key
+app.secret_key = os.urandom(24)  # Strong random secret key for sessions
 
 # Database connection function
 def get_db_connection():
     connection = mysql.connector.connect(
         host='localhost',
-        user='wlwuser',
-        password='adeb',
+        user='username',         # Change to your MySQL username
+        password='yourpassword', # Change to your MySQL password
         database='wedlockwonders'
     )
     return connection
@@ -36,8 +37,9 @@ def register():
             connection.close()
             return redirect(url_for('register'))
         else:
-            # Insert user
-            cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, password))
+            # Hash the password before storing
+            hashed_password = generate_password_hash(password)
+            cursor.execute('INSERT INTO users (username, password) VALUES (%s, %s)', (username, hashed_password))
             connection.commit()
 
             cursor.close()
@@ -57,20 +59,22 @@ def login():
         connection = get_db_connection()
         cursor = connection.cursor(dictionary=True)
         
-        cursor.execute('SELECT * FROM users WHERE username = %s AND password = %s', (username, password))
+        # Fetch user by username only
+        cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
         user = cursor.fetchone()
         
         cursor.close()
         connection.close()
         
-        if user:
-            session['user_id'] = user['user_id']   # Corrected here
+        # Verify password hash
+        if user and check_password_hash(user['password'], password):
+            session['user_id'] = user['user_id']
             session['user_name'] = user['username']
             flash('Login successful!', 'success')
-            return redirect(url_for('book'))    # Redirect to book page after login
+            return redirect(url_for('book'))
         else:
             flash('Invalid username or password', 'danger')
-            return redirect(url_for('login'))  # Stay on login page with error
+            return redirect(url_for('login'))
     
     return render_template('login.html')
 
@@ -87,8 +91,7 @@ def index():
     if 'user_id' not in session:
         return render_template('index.html')  # Show home page if user is not logged in
     else:
-        return render_template('index_logged_in.html')  # Alternatively, show a different page if logged in
-
+        return render_template('index_logged_in.html')  # Show different page if logged in
 
 # Function to get venue price
 def get_venue_price(venue_id):
@@ -131,7 +134,7 @@ def book():
         user_id = session.get('user_id')  # Get logged in user_id
 
         # Get the prices for each service
-        venue_price = get_venue_price(venue_id)  # Make sure you have this function for venues
+        venue_price = get_venue_price(venue_id)
         catering_price = get_service_price('catering', catering_option)
         orchestra_price = get_service_price('orchestra', orchestra_option)
         decoration_price = get_service_price('decoration', decoration_option)
@@ -153,10 +156,10 @@ def book():
         cursor.close()
         connection.close()
 
-        flash("Your booking has been confirmed! Booking ID: {}".format(booking_id), "success")
-        return redirect(url_for('your_bookings'))  # Redirect to 'your_bookings' page
+        flash(f"Your booking has been confirmed! Booking ID: {booking_id}", "success")
+        return redirect(url_for('your_bookings'))
 
-    # Fetch data for dropdowns (when GET request is made to load the form)
+    # Fetch data for dropdowns (GET request)
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
 
@@ -180,17 +183,15 @@ def book():
 # Your bookings page route
 @app.route('/your_bookings')
 def your_bookings():
-    # Get the database connection
     connection = get_db_connection()
 
     if connection is None:
         flash("Unable to connect to the database. Please try again later.")
-        return redirect(url_for('index'))  # Redirect to the home page or show an error page
+        return redirect(url_for('index'))
 
     cursor = connection.cursor(dictionary=True)
 
     try:
-        # Query to fetch bookings for the logged-in user
         cursor.execute("""
             SELECT b.booking_id, v.name AS venue_name, c.name AS catering_name, 
                    o.name AS orchestra_name, d.name AS decoration_name, 
@@ -200,13 +201,11 @@ def your_bookings():
             LEFT JOIN catering c ON b.catering_id = c.catering_id
             LEFT JOIN orchestra o ON b.orchestra_id = o.orchestra_id
             LEFT JOIN decorations d ON b.decoration_id = d.decoration_id
-            WHERE b.user_id = %s  # Assuming the user_id is stored in the session
-            """, (session['user_id'],))  # Use session to get the logged-in user's ID
+            WHERE b.user_id = %s
+        """, (session['user_id'],))
 
-        # Fetch all bookings
         bookings = cursor.fetchall()
 
-        # Check if bookings are found
         if not bookings:
             flash("You have no bookings.")
             return render_template('your_bookings.html', bookings=bookings)
@@ -214,14 +213,12 @@ def your_bookings():
         return render_template('your_bookings.html', bookings=bookings)
     
     except Error as e:
-        # Handle any errors that occur during query execution
         flash(f"An error occurred while fetching data: {e}")
-        return redirect(url_for('index'))  # Redirect to home or show an error page
+        return redirect(url_for('index'))
     
     finally:
         cursor.close()
         connection.close()
-
 
 if __name__ == '__main__':
     app.run(debug=True)
