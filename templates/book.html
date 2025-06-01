@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Venue</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 500px;
+            background-color: #fff;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>Book Your Venue</h2>
+            <!-- Venue Dropdown -->
+            <div class="form-group">
+                <label for="venue_id">Select Venue</label>
+                <select id="venue_id" name="venue_id" class="form-control" required>
+                    <option value="">Select Venue</option>
+                    {% for venue in venues %}
+                        <option value="{{ venue.venue_id }}">{{ venue.name }} - ₹{{ venue.price }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Catering Dropdown -->
+            <div class="form-group">
+                <label for="catering_option">Select Catering</label>
+                <select id="catering_option" name="catering_option" class="form-control" required>
+                    <option value="">Select Catering</option>
+                    {% for option in catering_options %}
+                        <option value="{{ option.catering_id }}">{{ option.name }} - ₹{{ option.price }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Decoration Dropdown -->
+            <div class="form-group">
+                <label for="decoration_option">Select Decoration</label>
+                <select id="decoration_option" name="decoration_option" class="form-control" required>
+                    <option value="">Select Decoration</option>
+                    {% for option in decoration_options %}
+                        <option value="{{ option.decoration_id }}">{{ option.name }} - ₹{{ option.price }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Orchestra Dropdown -->
+            <div class="form-group">
+                <label for="orchestra_option">Select Orchestra</label>
+                <select id="orchestra_option" name="orchestra_option" class="form-control" required>
+                    <option value="">Select Orchestra</option>
+                    {% for option in orchestra_options %}
+                        <option value="{{ option.orchestra_id }}">{{ option.name }} - ₹{{ option.price }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Date Picker -->
+            <div class="form-group">
+                <label for="date">Select Booking Date</label>
+                <input type="date" id="date" name="date" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Book Now</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

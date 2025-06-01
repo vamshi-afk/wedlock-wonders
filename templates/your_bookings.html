@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bookings</title>
+    <style>
+        /* Basic styles for the whole page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Styling the header */
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        /* Table styles */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Add a hover effect for rows */
+        table tr:hover {
+            background-color: #e1f1e1;
+        }
+
+        /* Add space between tables */
+        table td {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        /* Home Button Styling */
+        .btn-home {
+            display: block;
+            width: 150px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-home:hover {
+            background-color: #0056b3;
+        }
+
+        /* Small screen responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            table {
+                font-size: 0.9rem;
+            }
+
+            table th, table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% extends "base.html" %}
+
+    {% block content %}
+        <div class="container">
+            <h1>Your Bookings</h1>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Venue</th>
+                            <th>Catering</th>
+                            <th>Orchestra</th>
+                            <th>Decoration</th>
+                            <th>Booking Date</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking['booking_id'] }}</td>
+                                <td>{{ booking['venue_name'] }}</td>
+                                <td>{{ booking['catering_name'] }}</td>
+                                <td>{{ booking['orchestra_name'] }}</td>
+                                <td>{{ booking['decoration_name'] }}</td>
+                                <td>{{ booking['booking_date'] }}</td>
+                                <td>{{ booking['total_price'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Home Button -->
+            <a href="{{ url_for('index') }}" class="btn-home">Back to Home</a>
+        </div>
+    {% endblock %}
+</body>
+</html>
