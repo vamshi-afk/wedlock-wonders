@@ -67,7 +67,7 @@ The application will start on `http://127.0.0.1:5000/` by default.
 
 ## Acknowledgment
 
-This project was completed in collaboration with [@srikark7](https://github.com/srikark7), and [@user3](https://github.com/user3), who each contributed significantly to its development.
+This project was completed in collaboration with [@srikark7](https://github.com/srikark7), and [@allureddy985](https://github.com/allureddy985), who each contributed significantly to its development.
 
 ## 📄 License
 
