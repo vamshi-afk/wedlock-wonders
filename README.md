@@ -54,7 +54,12 @@ The application will start on `http://127.0.0.1:5000/` by default.
 
 **Wedlock Wonders** is a Database Management System (DBMS) project aimed at creating a comprehensive platform for managing wedding events. It allows users to plan and organize various aspects of a wedding, ensuring a seamless experience.
 
-The project leverages Flask for the backend and utilizes HTML, CSS, and JavaScript for the frontend. The database design and implementation are central to the application's functionality, ensuring data integrity and efficient management.
+## 🛠️ Tech Stack
+
+* **Frontend**: HTML, CSS, JavaScript
+* **Backend**: Python (Flask)
+* **Database**: MySQL
+* **Architecture**: Modular design with ER diagrams and database schema.
 
 ## 📚 Resources
 
