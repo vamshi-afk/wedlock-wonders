@@ -32,7 +32,7 @@ To run Wedlock Wonders locally:
 
 
 
-3. Install the required dependencies:([github.com][1])
+3. Install the required dependencies:
 
    ```bash
    pip install -r requirements.txt
@@ -52,7 +52,7 @@ The application will start on `http://127.0.0.1:5000/` by default.
 
 ## 📝 About
 
-**Wedlock Wonders** is a Database Management System (DBMS) project aimed at creating a comprehensive platform for managing wedding events. It allows users to plan and organize various aspects of a wedding, ensuring a seamless experience.([skypack.dev][2])
+**Wedlock Wonders** is a Database Management System (DBMS) project aimed at creating a comprehensive platform for managing wedding events. It allows users to plan and organize various aspects of a wedding, ensuring a seamless experience.
 
 The project leverages Flask for the backend and utilizes HTML, CSS, and JavaScript for the frontend. The database design and implementation are central to the application's functionality, ensuring data integrity and efficient management.
 
