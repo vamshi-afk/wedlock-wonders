@@ -33,11 +33,13 @@ To run Wedlock Wonders locally:
     * Ensure you have MySQL installed and running.
     * Open your MySQL client (e.g., MySQL Command Line Client, MySQL Workbench, phpMyAdmin).
     * Execute the queries in `sql/schema.sql` to create the `wedlockwonders` database and its tables.
+      
         ```bash
         # From your terminal, assuming you are in the project root
         mysql -u your_username -p < sql/schema.sql
         # (Enter your MySQL password when prompted)
         ```
+        
     * **Important:** Update the `user` and `password` in the `get_db_connection()` function in `app.py` to match your MySQL credentials.
 
 4.  Install the required Python dependencies:
