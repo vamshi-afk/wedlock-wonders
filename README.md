@@ -65,6 +65,10 @@ The application will start on `http://127.0.0.1:5000/` by default.
 * **Database**: MySQL
 * **Architecture**: Modular design with ER diagrams and database schema.
 
+## Acknowledgment
+
+This project was completed in collaboration with [@vamshi-afk](https://github.com/vamshi-afk), [@srikark7](https://github.com/srikark7), and [@user3](https://github.com/user3), who each contributed significantly to its development.
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
