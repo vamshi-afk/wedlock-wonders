@@ -10,43 +10,47 @@ The repository contains the following key components:
 * **`requirements.txt`**: Lists all the Python dependencies required to run the project.
 * **`static/`**: Contains static files like CSS, JavaScript, and images.
 * **`templates/`**: Holds the HTML templates rendered by Flask.
+* **`sql/schema.sql`**: Contains the SQL queries to create the necessary database and tables for the application.
 * **`README.md`**: This file, providing an overview of the project.
 
 ## 🚀 Installation
 
 To run Wedlock Wonders locally:
 
-1. Clone the repository:
+1.  Clone the repository:
 
-   ```bash
-   git clone https://github.com/vamshi-afk/wedlock-wonders.git
-   ```
+    ```bash
+    git clone [https://github.com/vamshi-afk/wedlock-wonders.git](https://github.com/vamshi-afk/wedlock-wonders.git)
+    ```
 
+2.  Navigate into the project directory:
 
+    ```bash
+    cd wedlock-wonders
+    ```
 
-2. Navigate into the project directory:
+3.  **Database Setup:**
+    * Ensure you have MySQL installed and running.
+    * Open your MySQL client (e.g., MySQL Command Line Client, MySQL Workbench, phpMyAdmin).
+    * Execute the queries in `sql/schema.sql` to create the `wedlockwonders` database and its tables.
+        ```bash
+        # From your terminal, assuming you are in the project root
+        mysql -u your_username -p < sql/schema.sql
+        # (Enter your MySQL password when prompted)
+        ```
+    * **Important:** Update the `user` and `password` in the `get_db_connection()` function in `app.py` to match your MySQL credentials.
 
-   ```bash
-   cd wedlock-wonders
-   ```
+4.  Install the required Python dependencies:
 
+    ```bash
+    pip install -r requirements.txt
+    ```
 
+5.  Run the application:
 
-3. Install the required dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-
-
-4. Run the application:
-
-   ```bash
-   python app.py
-   ```
-
-
+    ```bash
+    python app.py
+    ```
 
 The application will start on `http://127.0.0.1:5000/` by default.
 
