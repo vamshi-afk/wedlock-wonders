@@ -20,7 +20,7 @@ To run Wedlock Wonders locally:
 1.  Clone the repository:
 
     ```bash
-    git clone [https://github.com/vamshi-afk/wedlock-wonders.git](https://github.com/vamshi-afk/wedlock-wonders.git)
+    git clone https://github.com/vamshi-afk/wedlock-wonders.git
     ```
 
 2.  Navigate into the project directory:
